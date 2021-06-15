@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds-3/#background-color">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<style>
+.foo { background: blue; transition: background 50ms;}
+.bar { opacity: 0.1; zoom: 0.01; transition: background 50ms;}
+</style>
+
+<script>
+async_test(function(t) {
+document.addEventListener("DOMContentLoaded", t.step_func(function() {
+  var h1 = document.createElement('h1');
+  document.documentElement.appendChild(h1);
+  var o1 = document.createElement('option');
+  document.documentElement.appendChild(o1);
+  var o2 = document.createElement('option');
+  o2.setAttribute('label', '834877831');
+  o2.setAttribute('class', 'foo');
+  document.documentElement.appendChild(o2);
+  requestAnimationFrame(() => {
+    o2.setAttribute('class', 'bar');
+    t.done();
+  });
+}));
+}, "Pass if no crash");
+</script>
