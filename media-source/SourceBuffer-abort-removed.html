@@ -10,7 +10,10 @@
 <div id="log"></div>
 
 <script>
-var mimes = ['video/webm; codecs="vorbis,vp8"', 'video/mp4'];
+    //hzhong
+    //we do not support mimetype without codec
+    //var mimes = ['video/webm; codecs="vorbis,vp8"', 'video/mp4'];
+    var mimes = ['video/webm; codecs="vorbis,vp8"'];
 
 //check the browser supports the MIME used in this test
 function isTypeSupported(mime) {

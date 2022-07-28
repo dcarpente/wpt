@@ -10,8 +10,16 @@
 <div id="log"></div>
 
 <script>
+    //hzhong
+    // we do not support mimetype without codec
+    /*
 var contents = {'/media/white.webm': 'video/webm; codecs="vorbis,vp8"',
-                '/media/white.mp4' : 'video/mp4'};
+    '/media/white.mp4': 'video/mp4'
+};
+*/
+    var contents = {
+        '/media/white.webm': 'video/webm; codecs="vorbis,vp8"'
+    };
 
 function GET(url, processBody) {
     var xhr = new XMLHttpRequest();

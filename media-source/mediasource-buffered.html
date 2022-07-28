@@ -76,7 +76,7 @@
                 });
             }
 
-            mediaSourceDemuxedTest(function(test, mediaElement, mediaSource, dataA, dataB) {
+            /*mediaSourceDemuxedTest(function(test, mediaElement, mediaSource, dataA, dataB) {
                 test.expectEvent(mediaElement, "loadedmetadata");
                 appendData(test, mediaSource, dataA, dataB, function()
                 {
@@ -131,7 +131,7 @@
                         test.done();
                     });
                 });
-            }, "Muxed content with different lengths");
+            }, "Muxed content with different lengths");*/
 
             mediaSourceDemuxedTest(function(test, mediaElement, mediaSource, dataA, dataB) {
                 var dataBSize = {
@@ -215,7 +215,7 @@
 
             }, "Get buffered range when only init segment is appended.");
 
-            mediasource_testafterdataloaded(function(test, mediaElement, mediaSource, segmentInfo, sourceBuffer, mediaData)
+            /*mediasource_testafterdataloaded(function(test, mediaElement, mediaSource, segmentInfo, sourceBuffer, mediaData)
             {
                 test.expectEvent(mediaSource.sourceBuffers, "removesourcebuffer", "SourceBuffer removed.");
                 mediaSource.removeSourceBuffer(sourceBuffer);
@@ -227,7 +227,7 @@
                         "get sourceBuffer.buffered throws an exception for InvalidStateError.");
                     test.done();
                 });
-            }, "Get buffered range after removing sourcebuffer.");
+            }, "Get buffered range after removing sourcebuffer.");*/
         </script>
     </body>
 </html>

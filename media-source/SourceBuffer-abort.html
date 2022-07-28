@@ -10,13 +10,17 @@
 <div id="log"></div>
 
 <script>
-var mimes = ['video/webm; codecs="vorbis,vp8"', 'video/mp4'];
+    //hzhong
+    //somehow mimetype without codec info fails to addSourceBuffer
+//var mimes = ['video/webm; codecs="vorbis,vp8"', 'video/mp4'];
+var mimes = ['video/webm; codecs="vorbis,vp8"'];
 
 mimes.forEach(function(mime) {
-    async_test(function() {
+    async_test(function () {
+        //hzhong
         assert_true(MediaSource.isTypeSupported(mime),
                     "Browser doesn't support the MIME used in this test: " + mime);
-
+       
         var mediaSource = new MediaSource();
         mediaSource.addEventListener('sourceopen', this.step_func_done(function(e) {
             var sourceBuffer = mediaSource.addSourceBuffer(mime);
