@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- Copyright © 2016 Chromium authors and World Wide Web Consortium, (Massachusetts Institute of Technology, ERCIM, Keio University, Beihang). -->
+<html>
+    <head>
+        <title>SourceBuffer.timestampOffset test cases.</title>
+        <script src="/resources/testharness.js"></script>
+        <script src="/resources/testharnessreport.js"></script>
+        <script src="mediasource-util.js"></script>
+    </head>
+    <body>
+        <div id="log"></div>
+        <script>
+          function simpleTimestampOffsetTest(value, expected, description)
+          {
+              mediasource_test(function(test, mediaElement, mediaSource)
+              {
+                  var segmentInfo = MediaSourceUtil.SEGMENT_INFO;
+                  var sourceBuffer = mediaSource.addSourceBuffer(segmentInfo.type);
+
+                  assert_equals(sourceBuffer.timestampOffset, 0,
+                      "Initial timestampOffset of a SourceBuffer is 0");
+
+                  if (expected == "TypeError")  {
+                      assert_throws_js(TypeError,
+                          function() { sourceBuffer.timestampOffset = value; },
+                          "setting timestampOffset to " + description + " throws an exception.");
+                  } else {
+                      sourceBuffer.timestampOffset = value;
+                      assert_equals(sourceBuffer.timestampOffset, expected);
+                  }
+
+                  test.done();
+              }, "Test setting SourceBuffer.timestampOffset to " + description + ".");
+          }
+
+          simpleTimestampOffsetTest(10.5, 10.5, "a positive number");
+          simpleTimestampOffsetTest(-10.4, -10.4, "a negative number");
+          simpleTimestampOffsetTest(0, 0, "zero");
+
+          mediasource_testafterdataloaded(function(test, mediaElement, mediaSource, segmentInfo, sourceBuffer, mediaData)
+          {
+              var initSegment = MediaSourceUtil.extractSegmentData(mediaData, segmentInfo.init);
+              var mediaSegment = MediaSourceUtil.extractSegmentData(mediaData, segmentInfo.media[0]);
+
+              test.expectEvent(sourceBuffer, "updateend", "initSegment append ended.");
+              sourceBuffer.appendBuffer(initSegment);
+              assert_equals(mediaSource.sourceBuffers[0].timestampOffset, 0, "read initial value");
+
+              test.waitForExpectedEvents(function()
+              {
+                  test.expectEvent(sourceBuffer, "updateend", "mediaSegment append ended.");
+                  sourceBuffer.appendBuffer(mediaSegment);
+                  assert_equals(mediaSource.sourceBuffers[0].timestampOffset, 0,
+                      "No change to timestampoffset after segments mode init segment append");
+              });
+
+              test.waitForExpectedEvents(function()
+              {
+                  assert_equals(mediaSource.sourceBuffers[0].timestampOffset, 0,
+                      "No change to timestampoffset after segments mode media segment append");
+                  test.done();
+              });
+          }, "Test getting the initial value of timestampOffset.");
+
+        </script>
+    </body>
+</html>
