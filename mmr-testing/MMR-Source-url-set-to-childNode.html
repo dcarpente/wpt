@@ -9,24 +9,29 @@
 </head>
 <body>
     <div id="log"></div>
+    <video autoplay id="Video1" style="visibility: visible;">
+        <source src="mp4/test.mp4" type="video/mp4; codecs=&quot;mp4a.40.2, avc1.4d400d&quot;">
+    </video>
     <script>
         mediasource_test(function (test) {
-
+            /*
             var mediaElement = document.createElement("video");
             if (!document.body) {
                 document.body = document.createElement("body");
             }
-            
+
             var sourceMP4 = document.createElement("source");
             sourceMP4.type = 'video/mp4; codecs="mp4a.40.2, avc1.4d400d"';
             sourceMP4.src = "mp4/test.mp4";
             mediaElement.appendChild(sourceMP4);
-            
+
             //mediaElement.src = "mp4/test.mp4";
             mediaElement.autoplay = true;
 
             document.body.appendChild(mediaElement);
+            */
 
+            var mediaElement = document.getElementById("Video1");
             mediaElement.addEventListener('error', test.unreached_func("Unexpected event 'error'"));
             mediaElement.addEventListener('ended', test.step_func_done());
 
@@ -35,14 +40,6 @@
             test.step_timeout(function () {
                 assert_false(test.eventExpectations_.expectingEvents(), "Pending event expectations.");
             }, 5000);
-
-            test.removeMediaElement_ = true;
-            test.add_cleanup(function () {
-                if (test.removeMediaElement_) {
-                    document.body.removeChild(mediaTag);
-                    test.removeMediaElement_ = false;
-                }
-            });
 
         }, "Test soure is set to childNode");
 
