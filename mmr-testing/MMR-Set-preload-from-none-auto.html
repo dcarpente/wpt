@@ -10,7 +10,6 @@
 <body>
     <div id="log"></div>
     <video preload="none" id="Video1">
-        <source src="mp4/test.mp4" type='video/mp4; codecs="mp4a.40.2, avc1.4d400d"'>
     </video>
     <script>
         // Test Bug fix:
@@ -20,12 +19,18 @@
         mediasource_test(function (test) {
 
             var mediaElement = document.getElementById("Video1");
-            console.log("network state = " + mediaElement.networkState);
+            console.log("before set, network state = " + mediaElement.networkState);
             // Check networkState
             assert_true((mediaElement.networkState !== 3), "networkState is not NETWORK_NO_SOURCE");
 
+            // If set src before setting preload to auto
+            // networkState will remains 0
+            //mediaElement.src = "mp4/test.mp4";
+            //mediaElement.type = 'video/mp4; codecs="mp4a.40.2, avc1.4d400d"';
+
             mediaElement.preload = "auto";
 
+            console.log("after set, network state = " + mediaElement.networkState);
             assert_true((mediaElement.networkState == 3), "networkState is NETWORK_NO_SOURCE");
 
             test.removeMediaElement_ = true;
