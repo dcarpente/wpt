@@ -19,11 +19,7 @@
 
             document.body.appendChild(mediaElement);
 
-            var fShimmed = false;
-            if (mediaElement.MSRDC_MMR_Shim != undefined) {
-                fShimmed = true;
-            }
-            assert_true(fShimmed, "Video Element is shimmed");
+            assert_true((mediaElement.MSRDC_MMR_Shim != undefined), "Video Element is shimmed");
             
             test.done();
             test.add_cleanup(function () {
