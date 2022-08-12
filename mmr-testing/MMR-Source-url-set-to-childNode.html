@@ -14,23 +14,6 @@
     </video>
     <script>
         mediasource_test(function (test) {
-            /*
-            var mediaElement = document.createElement("video");
-            if (!document.body) {
-                document.body = document.createElement("body");
-            }
-
-            var sourceMP4 = document.createElement("source");
-            sourceMP4.type = 'video/mp4; codecs="mp4a.40.2, avc1.4d400d"';
-            sourceMP4.src = "mp4/test.mp4";
-            mediaElement.appendChild(sourceMP4);
-
-            //mediaElement.src = "mp4/test.mp4";
-            mediaElement.autoplay = true;
-
-            document.body.appendChild(mediaElement);
-            */
-
             var mediaElement = document.getElementById("Video1");
             mediaElement.addEventListener('error', test.unreached_func("Unexpected event 'error'"));
             mediaElement.addEventListener('ended', test.step_func_done());
