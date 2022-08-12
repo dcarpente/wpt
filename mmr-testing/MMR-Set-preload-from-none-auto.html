@@ -26,7 +26,7 @@
 
             mediaElement.preload = "auto";
 
-            console.log("network state = " + mediaElement.networkState);
+            assert_true((mediaElement.networkState == 3), "networkState is NETWORK_NO_SOURCE");
 
             test.removeMediaElement_ = true;
             test.add_cleanup(function () {
