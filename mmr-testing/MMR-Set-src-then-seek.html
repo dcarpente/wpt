@@ -28,12 +28,8 @@
                 assert_false(test.eventExpectations_.expectingEvents(), "Pending event expectations.");
             }, 5000);
 
-            test.removeMediaElement_ = true;
             test.add_cleanup(function () {
-                if (test.removeMediaElement_) {
-                    document.body.removeChild(mediaTag);
-                    test.removeMediaElement_ = false;
-                }
+                document.body.removeChild(mediaElement);
             });
 
         }, "Test Set videoElement src then immediately seek");
