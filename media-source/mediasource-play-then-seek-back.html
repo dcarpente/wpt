@@ -43,7 +43,11 @@
                     mediaElement.currentTime = 0.0;
                     assert_true(mediaElement.seeking, 'mediaElement is seeking');
 
-                    test.waitForExpectedEvents(finishSeekThenPlay);
+                    // Wait for 1 time change incase we get a 0 update.
+                    test.waitForCurrentTimeChange(mediaElement, function ()
+                    {
+                        test.waitForExpectedEvents(finishSeekThenPlay);
+                    });
                 }
 
                 test.waitForExpectedEvents(function()
