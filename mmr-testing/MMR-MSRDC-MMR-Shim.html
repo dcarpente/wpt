@@ -12,14 +12,22 @@
     <script>
         mediasource_test(function (test) {
 
+            console.log("create element");
+
             var mediaElement = document.createElement("video");
             if (!document.body) {
                 document.body = document.createElement("body");
             }
 
+            console.log("append element");
+
             document.body.appendChild(mediaElement);
 
+            console.log("check shim");
+
             assert_true((mediaElement.MSRDC_MMR_Shim != undefined), "Video Element is shimmed");
+
+            console.log(mediaElement.MSRDC_MMR_Shim != undefined);
             
             test.done();
             test.add_cleanup(function () {
